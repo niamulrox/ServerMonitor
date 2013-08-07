@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 	public void showPopup(View v) {
 	    PopupMenu popup = new PopupMenu(this, v);
 	    MenuInflater inflater = popup.getMenuInflater();
-	    //inflater.inflate(R.menu.display_message, popup.getMenu());
+	    inflater.inflate(R.menu.display_message, popup.getMenu());
 	    popup.show();
 	}
 	
@@ -42,6 +42,7 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
 /*	*//** Called when the user clicks the Send button *//*
 	public void sendMessage(View view) {
 		Intent intent = new Intent(this, DisplayMessageActivity.class);
@@ -50,6 +51,7 @@ public class MainActivity extends Activity {
 		intent.putExtra(EXTRA_MESSAGE, message);
 		startActivity(intent);
 	}*/
+	
 	public void sendMessage(View view) {
 		
 	}
