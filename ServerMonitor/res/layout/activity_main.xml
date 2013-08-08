@@ -23,7 +23,7 @@
 
     <ImageButton
         android:layout_width="wrap_content"
-        android:layout_height="190dp"
+        android:layout_height="50dp"
         android:onClick="checkIfHexxitServerRunning"
         android:src="@drawable/button1"
         android:text="Check for Hexxit Server" />
