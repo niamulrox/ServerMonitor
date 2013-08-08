@@ -20,7 +20,8 @@
         android:id="@+id/ipAddress_EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:paddingTop="30dp"
+        android:textSize="20sp"
         android:hint="@string/ipAddress"
         android:inputType="phone"
         android:textColor="#FFFFFF" >
@@ -30,7 +31,7 @@
         android:id="@+id/portNumber_EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:paddingTop="30dp"
         android:hint="@string/portNumber"
         android:inputType="number"
         android:textColor="#FFFFFF" >
