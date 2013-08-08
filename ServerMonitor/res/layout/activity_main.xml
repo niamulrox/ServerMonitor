@@ -1,68 +1,50 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/background"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context=".MainActivity" >
-    </LinearLayout>
-
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:contentDescription="@string/okayButton"
         android:onClick="checkIfHexxitServerRunning"
-        android:src="@drawable/button1"
-        android:text="Check for Hexxit Server" />
+        android:src="@drawable/button1" />
 
     <EditText
-        android:id="@+id/editText1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" >
-    </EditText>
-
-    <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/ipAddress_EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="number" >
+        android:hint="@string/ipAddress"
+        android:inputType="phone"
+        android:textColor="#FFFFFF" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/portNumber_EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/portNumber"
+        android:inputType="number"
+        android:textColor="#FFFFFF" >
 
         <requestFocus />
     </EditText>
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/statusOfServer_textView"
         android:layout_width="330dp"
-        android:layout_height="190dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_height="0dp"
         android:layout_marginTop="112dp"
         android:layout_weight="0.07"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#33ff00" />
-    
-<!--     <Button
-        android:id="@+id/RandomNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="129dp"
-        android:text="Button" /> -->
-    
+
 </LinearLayout>

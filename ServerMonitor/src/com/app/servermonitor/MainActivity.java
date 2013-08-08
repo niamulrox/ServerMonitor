@@ -18,23 +18,23 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
-	
-	public final static String EXTRA_MESSAGE ="com.example.DerekksFirstApp.message";
+
+	public final static String EXTRA_MESSAGE = "com.example.DerekksFirstApp.message";
 	TextView serverStatus;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		serverStatus = (TextView)findViewById(R.id.textView1);
+		serverStatus = (TextView) findViewById(R.id.statusOfServer_textView);
 	}
+
 	public void showPopup(View v) {
-	    PopupMenu popup = new PopupMenu(this, v);
-	    MenuInflater inflater = popup.getMenuInflater();
-	    inflater.inflate(R.menu.display_message, popup.getMenu());
-	    popup.show();
+		PopupMenu popup = new PopupMenu(this, v);
+		MenuInflater inflater = popup.getMenuInflater();
+		inflater.inflate(R.menu.display_message, popup.getMenu());
+		popup.show();
 	}
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -42,25 +42,14 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
-/*	*//** Called when the user clicks the Send button *//*
-	public void sendMessage(View view) {
-		Intent intent = new Intent(this, DisplayMessageActivity.class);
-		EditText editText = (EditText) findViewById(R.id.edit_message);
-		String message = editText.getText().toString();
-		intent.putExtra(EXTRA_MESSAGE, message);
-		startActivity(intent);
-	}*/
-	
-	public void sendMessage(View view) {
-		
-	}
+
 	public void checkIfHexxitServerRunning(View view) {
 		new SocketFinder().execute("");
 	}
 
 	private class SocketFinder extends AsyncTask<String, Void, String> {
 		String status = "";
+
 		@Override
 		protected String doInBackground(String... arg0) {
 			Log.w("DEREK", "Checking for server");
@@ -75,36 +64,36 @@ public class MainActivity extends Activity {
 
 				Log.w("DEREK", "Port in use: " + port);
 			} catch (Exception e) {
-				if( e instanceof UnknownHostException){
+				if (e instanceof UnknownHostException) {
 					Log.w("DEREK", "Unknown Host");
 				}
-				if( e instanceof SocketTimeoutException ){
+				if (e instanceof SocketTimeoutException) {
 					Log.w("DEREK", "Connect timeout");
 				}
 			} finally {
-				if (serverSok != null){
-					if(serverSok.isConnected()){
+				if (serverSok != null) {
+					if (serverSok.isConnected()) {
 						status = "Server is up!";
-						//serverStatus.setText("Connection established");
+						// serverStatus.setText("Connection established");
 					} else {
 						status = "Server is down!";
-						//serverStatus.setText("Connection failed, port not reachable");
+						// serverStatus.setText("Connection failed, port not reachable");
 					}
 					try {
 						serverSok.close();
-					} catch (IOException e){
-						
+					} catch (IOException e) {
+
 					}
 				}
 			}
-			//Log.w("DEREK", "The selected port is not in use");
+			// Log.w("DEREK", "The selected port is not in use");
 			return null;
 		}
-		
-	@Override
-	protected void onPostExecute(String result) {
-		TextView tempStatus = (TextView)findViewById(R.id.textView1);
-		tempStatus.setText(status);
-	}
+
+		@Override
+		protected void onPostExecute(String result) {
+			TextView tempStatus = (TextView) findViewById(R.id.statusOfServer_textView);
+			tempStatus.setText(status);
+		}
 	}
 }
