@@ -18,18 +18,20 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.widget.PopupMenu;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
 	public final static String EXTRA_MESSAGE = "com.example.DerekksFirstApp.message";
 	TextView serverStatus;
+	EditText ipAddressEditText;
+	EditText portNumberEditText;
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	@Override
@@ -37,20 +39,13 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		serverStatus = (TextView) findViewById(R.id.statusOfServer_textView);
-	}
-
-	/*
-	 * Don't know what this does
-	 */
-	public void showPopup(View v) {
-		PopupMenu popup = new PopupMenu(this, v);
-		MenuInflater inflater = popup.getMenuInflater();
-		inflater.inflate(R.menu.display_message, popup.getMenu());
-		popup.show();
+		ipAddressEditText = (EditText) findViewById(R.id.ipAddress_EditText);
+		portNumberEditText = (EditText) findViewById(R.id.portNumber_EditText);
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */
 	@Override
@@ -63,36 +58,56 @@ public class MainActivity extends Activity {
 	/*
 	 * Runs the SocketFinder function for server checkings
 	 * 
-	 * @param	View
-	 * @return 	None
+	 * @param View
+	 * 
+	 * @return None
 	 */
 	public void checkIfHexxitServerRunning(View view) {
-		new SocketFinder().execute("");
+		String myIp = "";
+		int myPort = 0;
+
+		if (ipAddressEditText.getText().toString().length() >= 11) {
+			myIp = ipAddressEditText.getText().toString();
+		} else {
+			// TODO do something with this error here for non-valid IP
+			return;
+		}
+		if (portNumberEditText.getText().toString().length() == 0) {
+			myPort = 0;
+		} else {
+			myPort = Integer.parseInt(portNumberEditText.getText().toString());
+		}
+		SocketFinder mySocketFinder = new SocketFinder();
+		mySocketFinder.setIpAddress(myIp);
+		mySocketFinder.setPortNumber(myPort);
+		mySocketFinder.execute("");
 	}
 
 	/*
-	 * Class for running a thread and checking if a server is active
-	 * TODO might want to move this to another class
+	 * Class for running a thread and checking if a server
 	 */
 	private class SocketFinder extends AsyncTask<String, Void, String> {
 		String status = "";
+		String ip = "";
+		int port = 0;
 
 		@Override
 		protected String doInBackground(String... arg0) {
-			String ipAddress = "75.109.14.220";
-			int port = 25565;
+			// String ipAddress = "75.109.14.220";
+			// int port = 25565;
 			Socket serverSok = null;
 			try {
 				serverSok = new Socket();
 				serverSok.setReuseAddress(true);
-				SocketAddress sAddress = new InetSocketAddress(ipAddress, port);
+				SocketAddress sAddress = new InetSocketAddress(ip, port);
 				serverSok.connect(sAddress, 3000);
 			} catch (Exception e) {
 				if (e instanceof UnknownHostException) {
-					//TODO Catch exception
+					// TODO Catch exception
+					status = "Unknown Host";
 				}
 				if (e instanceof SocketTimeoutException) {
-					//TODO Catch exception
+					status = "Timed Out";
 				}
 			} finally {
 				if (serverSok != null) {
@@ -113,12 +128,21 @@ public class MainActivity extends Activity {
 
 		/*
 		 * (non-Javadoc)
+		 * 
 		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
 		 */
 		@Override
 		protected void onPostExecute(String result) {
 			TextView tempStatus = (TextView) findViewById(R.id.statusOfServer_textView);
 			tempStatus.setText(status);
+		}
+
+		public void setIpAddress(String ipAddress) {
+			ip = ipAddress;
+		}
+
+		public void setPortNumber(int portNumber) {
+			port = portNumber;
 		}
 	}
 }
