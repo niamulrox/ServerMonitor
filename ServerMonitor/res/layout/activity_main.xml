@@ -41,8 +41,8 @@
     </LinearLayout>
 
     <ImageButton
-        android:layout_width="190dp"
-        android:layout_height="50dp"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
         android:contentDescription="@string/okayButton"
         android:onClick="checkIfHexxitServerRunning"
         android:src="@drawable/button1" />
